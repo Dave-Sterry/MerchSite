@@ -1,20 +1,29 @@
 import React from 'react';
 import ItemsAll from './ItemsAll';
 import NewItemForm from './NewItemForm';
+import ItemDetail from './ItemDetail';
 
 class ItemControl extends React.Component{
   constructor(props){
     super(props);
     this.state={
       formVisibleOnPage:false,
-      masterItemList: []
+      masterItemList: [],
+      selectedItem : null
     };
   }
 
   handleClick = () => {
-    this.setState(prevState => ({
-      formVisibleOnPage: !prevState.formVisibleOnPage
-    }))
+    if (this.state.selectedItem != null){
+      this.setState({
+        formVisibleOnPage: false,
+        selectedItem: null
+      });
+    } else {
+      this.setState(prevState => ({
+        formVisibleOnPage: !prevState.formVisibleOnPage
+      }));
+    }
   }
 
   handleAddingNewItemToList = (newItem) => {
@@ -25,14 +34,24 @@ class ItemControl extends React.Component{
     })
   }
 
+  handleChangingSelectedItem = (id) => {
+    const selectedItem = this.state.masterItemList.filter(ticket => ticket.id === id)[0];
+    this.setState({selectedItem: selectedItem});
+  }
+
   render(){
     let currenltyVisibleState = null;
     let buttonText = null;
-    if(this.state.formVisibleOnPage){
+
+    if (this.state.selectedItem !=null){
+      currenltyVisibleState = <ItemDetail item = {this.state.selectedItem} />
+      buttonText = "Return to Item List"
+    }
+    else if(this.state.formVisibleOnPage){
       currenltyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} />
       buttonText = "Return to Item List"
     } else {
-      currenltyVisibleState = <ItemsAll itemList= {this.state.masterItemList} />
+      currenltyVisibleState = <ItemsAll itemList= {this.state.masterItemList} onItemSelection = {this.handleChangingSelectedItem}/>
       buttonText = "Add an Item";
     }
     return(

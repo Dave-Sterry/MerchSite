@@ -28,7 +28,7 @@ function NewItemForm(props){
   );
 }
 
-newItemForm.propTypes = {
+NewItemForm.propTypes = {
   onNewItemCreation: PropTypes.func
 };
 
