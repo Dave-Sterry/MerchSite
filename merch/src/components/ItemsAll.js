@@ -10,7 +10,7 @@ function ItemsAll(props){
       <Item whenItemClicked = {props.onItemSelection}
         name={item.name}
         description={item.description}
-        quantity={item.quantity}
+        quantity={parseInt(item.quantity)}
         id={item.id}
         key={item.id}/>
       )}
