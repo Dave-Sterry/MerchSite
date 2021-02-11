@@ -30,7 +30,7 @@ function ItemsAll(props){
 
   return(
     <React.Fragment>
-      <Container>
+      {/* <Container> */}
         {Object.keys(rows).map(row => {
           return(
             <Row className = "items_row" key={row} style={rowStyles} xl={4} lg={4} md={4} sm={2} xs={2}>
@@ -48,7 +48,7 @@ function ItemsAll(props){
             </Row>
           )
         })}
-      </Container>
+      {/* </Container> */}
     </React.Fragment>
   );
 }
