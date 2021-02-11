@@ -2,12 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Item(props){
+  const itemStyles = {
+    backgroundColor: '#e6a5a7',
+    border: 'solid',
+    borderRadius: '15px',
+    textAlign: 'center',
+    padding: '10px'
+  }
   return(
     <React.Fragment>
-      <div onClick = {() => props.whenItemClicked(props.id)}>
-      <h3>{props.name}</h3>
-      <h3>{props.description}</h3>
-      <h3>{props.quantity}</h3>
+      <div onClick = {() => props.whenItemClicked(props.id)} style={itemStyles}>
+      <h4>{props.name}</h4>
+      <p>{props.description}</p>
+      <h5>{props.quantity}</h5>
       </div>
     </React.Fragment>
   );

@@ -21,12 +21,19 @@ function ItemsAll(props){
     return rows;
   }
   let rows = _createItemList();
+
+  const rowStyles = {
+    fontFamily: 'comic sans',
+    paddingTop: '10px',
+    paddingBottom:'10px',
+  };
+
   return(
     <React.Fragment>
       <Container>
         {Object.keys(rows).map(row => {
           return(
-            <Row className = "items_row" key={row}>
+            <Row className = "items_row" key={row} style={rowStyles} xl={4} lg={4} md={4} sm={2} xs={2}>
               {rows[row].map(item => {
                 return(
                   <Col><Item whenItemClicked = {props.onItemSelection}
@@ -54,7 +61,7 @@ ItemsAll.propTypes ={
 export default ItemsAll;
 
 
-{/* <hr/>
+/* <hr/>
 {props.itemList.map((item) =>
 <Item whenItemClicked = {props.onItemSelection}
   name={item.name}
@@ -62,4 +69,4 @@ export default ItemsAll;
   quantity={parseInt(item.quantity)}
   id={item.id}
   key={item.id}/>
-)} */}
+)} */
