@@ -1,19 +1,47 @@
 import React from 'react';
 import Item from './Item';
 import PropTypes from 'prop-types';
+import {Container, Row, Col} from 'react-bootstrap';
 
 function ItemsAll(props){
+
+  function _createItemList() {
+    let rows = {};
+    let counter = 1;
+    props.itemList.forEach((item, index) => {
+      rows[counter] = rows[counter] ? [...rows[counter]] : [];
+      if(index % 4 === 0 && index !== 0){
+        counter++;
+        rows[counter] = rows[counter] ? [...rows[counter]] : [];
+        rows[counter].push(item);
+      } else {
+        rows[counter].push(item);
+      }
+    });
+    return rows;
+  }
+  let rows = _createItemList();
   return(
     <React.Fragment>
-      <hr/>
-      {props.itemList.map((item) =>
-      <Item whenItemClicked = {props.onItemSelection}
-        name={item.name}
-        description={item.description}
-        quantity={parseInt(item.quantity)}
-        id={item.id}
-        key={item.id}/>
-      )}
+      <Container>
+        {Object.keys(rows).map(row => {
+          return(
+            <Row className = "items_row" key={row}>
+              {rows[row].map(item => {
+                return(
+                  <Col><Item whenItemClicked = {props.onItemSelection}
+                  name={item.name}
+                  description={item.description}
+                  quantity={parseInt(item.quantity)}
+                  id={item.id}
+                  key={item.id}/>
+                  </Col>
+                  )
+              })}
+            </Row>
+          )
+        })}
+      </Container>
     </React.Fragment>
   );
 }
@@ -24,3 +52,14 @@ ItemsAll.propTypes ={
 };
 
 export default ItemsAll;
+
+
+{/* <hr/>
+{props.itemList.map((item) =>
+<Item whenItemClicked = {props.onItemSelection}
+  name={item.name}
+  description={item.description}
+  quantity={parseInt(item.quantity)}
+  id={item.id}
+  key={item.id}/>
+)} */}
